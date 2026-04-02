@@ -53,6 +53,12 @@ export async function POST(req: Request) {
     to: Array.isArray(to) ? to : [to],
     subject,
     html: htmlBody,
+    headers: {
+      "X-Entity-Ref-ID": `${leadId || Date.now()}`,
+    },
+    tags: [
+      { name: "category", value: "outreach" },
+    ],
   });
 
   // Log to Supabase

@@ -301,7 +301,7 @@ export default function SendPage() {
                   </p>
                   <iframe
                     srcDoc={previewHtml}
-                    className="w-full rounded-md border border-border pointer-events-none"
+                    className="w-full rounded-md border border-border"
                     style={{ height: 420 }}
                     title="Email preview"
                   />

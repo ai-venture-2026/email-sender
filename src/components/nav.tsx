@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { createClient } from "@/lib/supabase-client";
+import { Button } from "@/components/ui/button";
 
 const links = [
   { href: "/", label: "Dashboard" },
@@ -13,6 +15,16 @@ const links = [
 
 export function Nav() {
   const pathname = usePathname();
+  const router = useRouter();
+
+  if (pathname === "/login") return null;
+
+  async function handleLogout() {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push("/login");
+    router.refresh();
+  }
 
   return (
     <header className="border-b border-border bg-card">
@@ -36,6 +48,11 @@ export function Nav() {
             </Link>
           ))}
         </nav>
+        <div className="ml-auto">
+          <Button variant="ghost" size="sm" onClick={handleLogout}>
+            Logout
+          </Button>
+        </div>
       </div>
     </header>
   );
